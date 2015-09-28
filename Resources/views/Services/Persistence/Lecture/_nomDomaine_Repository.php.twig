@@ -1,0 +1,40 @@
+<?php
+
+namespace {{namespace}}\Services\Persistence\Lecture;
+
+use {{namespace}}\Services\Domain\{{nomDeDomaine}}\{{nomDeDomaine}}DTO;
+use {{namespace}}\Services\Domain\{{nomDeDomaine}}\{{nomDeDomaine}}Collection;
+
+class {{nomDeDomaine}}Repository
+{
+
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function lister()
+    {
+        ${{nomDeDomaineMinuscule}}Collection = new {{nomDeDomaine}}Collection();
+        $stmt = $this->pdo->query('SELECT * FROM {{nomDeDomaineMinuscule}}s');
+        $stmt->execute();
+        $resultSets = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($resultSets as $row) {
+            ${{nomDeDomaineMinuscule}}Collection->ajouter(new {{nomDeDomaine}}DTO($row['id'], $row['libelle']));
+        }
+        return ${{nomDeDomaineMinuscule}}Collection;
+    }
+
+    public function get(${{nomDeDomaineMinuscule}}Id)
+    {
+        $sql = "SELECT * FROM {{nomDeDomaineMinuscule}}s WHERE id = :{{nomDeDomaineMinuscule}}_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue("{{nomDeDomaineMinuscule}}_id", ${{nomDeDomaineMinuscule}}Id);
+        $stmt->execute();
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return new {{nomDeDomaine}}DTO($row['id'], $row['libelle']);
+    }
+
+}

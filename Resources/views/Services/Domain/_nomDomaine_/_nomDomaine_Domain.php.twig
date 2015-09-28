@@ -1,0 +1,94 @@
+<?php
+
+namespace {{namespace}}\Services\Domain\{{nomDeDomaine}};
+
+use {{namespace}}\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteCree;
+use {{namespace}}\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteModifie;
+use {{namespace}}\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteSupprime;
+use Starkerxp\CQRSESBundle\Services\Domain\DomainEvents;
+
+class {{nomDeDomaine}}Domain extends DomainEvents
+{
+
+    private ${{nomDeDomaineMinuscule}}Id;
+    private $libelle;
+
+    private function __construct(${{nomDeDomaineMinuscule}}Id, $libelle)
+    {
+        $this->{{nomDeDomaineMinuscule}}Id = ${{nomDeDomaineMinuscule}}Id;
+        $this->libelle = $libelle;
+    }
+
+    public static function cree(${{nomDeDomaineMinuscule}}Id, $libelle)
+    {
+        $nouvelle{{nomDeDomaine}} = new {{nomDeDomaine}}Domain(${{nomDeDomaineMinuscule}}Id, $libelle);
+        $nouvelle{{nomDeDomaine}}->enregistrementEvenement(new {{nomDeDomaine}}AEteCree(${{nomDeDomaineMinuscule}}Id, $libelle));
+        return $nouvelle{{nomDeDomaine}};
+    }
+
+    /**
+     * Permet de reconstruire un objet depuis sa collection d'évènements.
+     *
+     * @param type $aggregateHistorique
+     *
+     * @return type
+     */
+    public static function reconstitutionDepuis($aggregateHistorique)
+    {
+        ${{nomDeDomaineMinuscule}} = static::creeVide($aggregateHistorique->getAggregateId());
+        $events = $aggregateHistorique->getEvents();
+        foreach ($events as $event) {
+            ${{nomDeDomaineMinuscule}}->apply($event);
+            ${{nomDeDomaineMinuscule}}->setVersion($event->getVersion());
+        }
+        return ${{nomDeDomaineMinuscule}};
+    }
+
+    private static function creeVide(${{nomDeDomaineMinuscule}}Id)
+    {
+        return new {{nomDeDomaine}}Domain(${{nomDeDomaineMinuscule}}Id, null);
+    }
+
+    /**
+     * Permet d'appliquer un event à l'objet en cours.
+     *
+     * @param type $anEvent
+     */
+    private function apply($anEvent)
+    {
+        $explodeEvent = explode("\\", get_class($anEvent));
+        $method = 'apply' . $explodeEvent[count($explodeEvent) - 1];
+        $this->$method($anEvent);
+    }
+
+    public function apply{{nomDeDomaine}}AEteCree($event)
+    {
+        $this->libelle = $event->getLibelle();
+    }
+
+    public function apply{{nomDeDomaine}}AEteModifie($event)
+    {
+        $this->libelle = $event->getLibelle();
+    }
+
+    public function applyUne{{nomDeDomaine}}AEteSupprime($event)
+    {
+
+    }
+
+    public function modifierLeLibelle($nouveauLibelle)
+    {
+        $event = new {{nomDeDomaine}}AEteModifie($this->{{nomDeDomaineMinuscule}}Id, $nouveauLibelle);
+        $event->setVersion($this->getUpdateVersion());
+        $this->enregistrementEvenement($event);
+        $this->apply($event);
+    }
+
+    public function supprimerUne{{nomDeDomaine}}()
+    {
+        $event = new {{nomDeDomaine}}AEteSupprime($this->{{nomDeDomaineMinuscule}}Id);
+        $event->setVersion($this->getUpdateVersion());
+        $this->enregistrementEvenement($event);
+    }
+
+}

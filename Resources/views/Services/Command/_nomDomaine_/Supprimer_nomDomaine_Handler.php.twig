@@ -1,0 +1,35 @@
+<?php
+
+namespace {{namespace}}\Services\Command\{{nomDeDomaine}};
+
+use {{namespace}}\Services\Persistence\Ecriture\{{nomDeDomaine}}\{{nomDeDomaine}}Repository;
+use Starkerxp\CQRSESBundle\Services\Command\CommandHandlerInterface;
+use Starkerxp\CQRSESBundle\Services\Command\CommandInterface;
+
+class Supprimer{{nomDeDomaine}}Handler implements CommandHandlerInterface
+{
+
+    /**
+     * @var {{nomDeDomaine}}Repository
+     */
+    private ${{nomDeDomaineMinuscule}}Repository;
+
+    public function __construct({{nomDeDomaine}}Repository ${{nomDeDomaineMinuscule}}Repository)
+    {
+        $this->{{nomDeDomaineMinuscule}}Repository = ${{nomDeDomaineMinuscule}}Repository;
+    }
+
+    /**
+     * Permet de déclencher la commande de suppression d'une {{nomDeDomaineMinuscule}}.
+     * 
+     * @param CommandInterface $command
+     */
+    public function handle(CommandInterface $command)
+    {
+        ${{nomDeDomaineMinuscule}} = $this->{{nomDeDomaineMinuscule}}Repository->get($command->get{{nomDeDomaine}}Id());
+        // Vérifier que la {{nomDeDomaineMinuscule}} existe bien.
+        ${{nomDeDomaineMinuscule}}->supprimerUne{{nomDeDomaine}}();
+        $this->{{nomDeDomaineMinuscule}}Repository->ajouter(${{nomDeDomaineMinuscule}});
+    }
+
+}

@@ -1,0 +1,26 @@
+namespace {{namespace}}\Services\Domain\{{nomDeDomaine}}\Event;
+
+use \Starkerxp\CQRSESBundle\Services\Domain\AbstractEvent;
+
+class {{nomDeDomaine}}AEteCree extends AbstractEvent
+{
+    private ${{nomDeDomaineMinuscule}}Id;
+    private $libelle;
+    
+    public function __construct(${{nomDeDomaineMinuscule}}Id, $libelle)
+    {
+        $this->{{nomDeDomaineMinuscule}}Id = ${{nomDeDomaineMinuscule}}Id;
+        $this->libelle = $libelle;
+    }
+
+    public function getAggregateId()
+    {
+        return $this->{{nomDeDomaineMinuscule}}Id;
+    }
+
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+}

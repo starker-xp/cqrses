@@ -1,0 +1,42 @@
+<?php
+
+namespace Starkerxp\EcommerceBundle\Services\Persistence\Ecriture\{{nomDeDomaine}};
+
+use Starkerxp\CQRSESBundle\Services\Persistence\AbstractProjection;
+use Starkerxp\EcommerceBundle\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteCree;
+use Starkerxp\EcommerceBundle\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteModifie;
+use Starkerxp\EcommerceBundle\Services\Domain\{{nomDeDomaine}}\Event\{{nomDeDomaine}}AEteSupprime;
+
+class {{nomDeDomaine}}Projection extends AbstractProjection
+{
+
+    public function project{{nomDeDomaine}}AEteCree({{nomDeDomaine}}AEteCree $event)
+    {
+        $sql = 'INSERT INTO {{nomDeDomaineMinuscule}}s (id, libelle) VALUES (:{{nomDeDomaineMinuscule}}_id, :libelle)';
+        $stmt = $this->getPdo()->prepare($sql);
+        $stmt->execute([
+            ':{{nomDeDomaineMinuscule}}_id' => $event->getAggregateId(),
+            ':libelle' => $event->getLibelle(),
+        ]);
+    }
+
+    public function project{{nomDeDomaine}}AEteModifie(ModificationLibelle{{nomDeDomaine}} $event)
+    {
+        $sql = 'UPDATE {{nomDeDomaineMinuscule}}s SET libelle= :libelle WHERE id= :{{nomDeDomaineMinuscule}}_id';
+        $stmt = $this->getPdo()->prepare($sql);
+        $stmt->execute([
+            ':{{nomDeDomaineMinuscule}}_id' => $event->getAggregateId(),
+            ':libelle' => $event->getLibelle(),
+        ]);
+    }
+
+    public function project{{nomDeDomaine}}AEteSupprime(Une{{nomDeDomaine}}AEteSupprime $event)
+    {
+        $sql = 'DELETE FROM {{nomDeDomaineMinuscule}}s WHERE id= :{{nomDeDomaineMinuscule}}_id';
+        $stmt = $this->getPdo()->prepare($sql);
+        $stmt->execute([
+            ':{{nomDeDomaineMinuscule}}_id' => $event->getAggregateId()
+        ]);
+    }
+
+}

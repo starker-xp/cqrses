@@ -1,0 +1,22 @@
+<?php
+
+namespace {{namespace}}\Services\Domain\{{nomDeDomaine}}\Event;
+
+use \Starkerxp\CQRSESBundle\Services\Domain\AbstractEvent;
+
+class {{nomDeDomaine}}AEteSupprime extends AbstractEvent
+{
+
+    private ${{nomDeDomaineMinuscule}}Id;
+
+    public function __construct(${{nomDeDomaineMinuscule}}Id)
+    {
+        $this->{{nomDeDomaineMinuscule}}Id = ${{nomDeDomaineMinuscule}}Id;
+    }
+
+    public function getAggregateId()
+    {
+        return $this->{{nomDeDomaineMinuscule}}Id;
+    }
+
+}

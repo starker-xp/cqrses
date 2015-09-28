@@ -1,0 +1,15 @@
+<?php
+
+namespace {{namespace}}\Services\Domain\{{nomDeDomaine}};
+
+use Starkerxp\CQRSESBundle\Services\Domain\AbstractCollection;
+
+class {{nomDeDomaine}}Collection extends AbstractCollection
+{
+
+    public function ajouter({{nomDeDomaine}}DTO $marqueDto)
+    {
+        $this->collection->append($marqueDto);
+    }
+
+}

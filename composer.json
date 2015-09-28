@@ -1,0 +1,10 @@
+{
+    "name": "starker-xp/cqrses-bundle",
+    "authors": [
+        {
+            "name": "starker-xp",
+            "email": "contact@starker-xp.net"
+        }
+    ],
+    "require": {}
+}

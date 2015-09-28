@@ -1,0 +1,45 @@
+services :
+    # Bus
+    bus.command.{{nomDeDomaineMinuscule}}:
+        class: "Starkerxp\\CQRSESBundle\\Services\\Command\\CommandBus"
+        calls:
+            - [register, ["@handler.command.creation_{{nomDeDomaineMinuscule}}"]]
+            - [register, ["@handler.command.modification_{{nomDeDomaineMinuscule}}"]]
+            - [register, ["@handler.command.supprimer_{{nomDeDomaineMinuscule}}"]]
+    bus.event.{{nomDeDomaineMinuscule}}:
+        class: "Starkerxp\\CQRSESBundle\\Services\\Query\\QueryBus"
+        calls:
+            - [register, ["@handler.query.lister_{{nomDeDomaineMinuscule}}"]]
+            - [register, ["@handler.query.get_{{nomDeDomaineMinuscule}}"]]
+            
+    # Repository
+    repository.read.{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Persistence\\Lecture\\{{nomDeDomaine}}Repository"
+        arguments: ["@doctrine.dbal.read_connection"]
+    repository.write.{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Persistence\\Ecriture\\{{nomDeDomaine}}\\{{nomDeDomaine}}Repository"
+        arguments: ["@event_store", "@projection.{{nomDeDomaineMinuscule}}"]
+        
+    # Projection
+    projection.{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Persistence\\Ecriture\\{{nomDeDomaine}}\\{{nomDeDomaine}}Projection"
+        arguments: ["@doctrine.dbal.write_connection"]
+        
+    # Query
+    handler.query.lister_{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Query\\{{nomDeDomaine}}\\{{nomDeDomaine}}ListerQueryHandler"
+        arguments: ["@repository.read.{{nomDeDomaineMinuscule}}"]
+    handler.query.get_{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Query\\{{nomDeDomaine}}\\{{nomDeDomaine}}QueryHandler"
+        arguments: ["@repository.read.{{nomDeDomaineMinuscule}}"]
+        
+    # Command
+    handler.command.creation_{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Command\\{{nomDeDomaine}}\\Creation{{nomDeDomaine}}Handler"
+        arguments: ["@repository.write.{{nomDeDomaineMinuscule}}"]
+    handler.command.modification_{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Command\\{{nomDeDomaine}}\\Modification{{nomDeDomaine}}Handler"
+        arguments: ["@repository.write.{{nomDeDomaineMinuscule}}"]
+    handler.command.supprimer_{{nomDeDomaineMinuscule}}:
+        class: "{{namespaceFQC}}\\Services\\Command\\{{nomDeDomaine}}\\Supprimer{{nomDeDomaine}}Handler"
+        arguments: ["@repository.write.{{nomDeDomaineMinuscule}}"]

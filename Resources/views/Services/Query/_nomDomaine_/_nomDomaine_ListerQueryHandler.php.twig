@@ -1,0 +1,25 @@
+<?php
+
+namespace {{namespace}}\Services\Query\{{nomDeDomaine}};
+
+use {{namespace}}\Services\Persistence\Lecture\{{nomDeDomaine}}Repository;
+use Starkerxp\CQRSESBundle\Services\Query\QueryHandlerInterface;
+use Starkerxp\CQRSESBundle\Services\Query\QueryInterface;
+
+class {{nomDeDomaine}}ListerQueryHandler implements QueryHandlerInterface
+{
+
+    private ${{nomDeDomaineMinuscule}}Repository;
+
+    public function __construct({{nomDeDomaine}}Repository ${{nomDeDomaineMinuscule}}Repository)
+    {
+        $this->{{nomDeDomaineMinuscule}}Repository = ${{nomDeDomaineMinuscule}}Repository;
+    }
+
+    public function handle(QueryInterface ${{nomDeDomaineMinuscule}}Query)
+    {
+        $resultSets = $this->{{nomDeDomaineMinuscule}}Repository->lister();
+        return $resultSets->getCollection();
+    }
+
+}

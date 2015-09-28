@@ -1,0 +1,25 @@
+<?php
+
+namespace {{namespace}}\Services\Query\{{nomDeDomaine}};
+
+use {{namespace}}\Services\Persistence\Lecture\{{nomDeDomaine}}Repository;
+use Starkerxp\CQRSESBundle\Services\Query\QueryHandlerInterface;
+use Starkerxp\CQRSESBundle\Services\Query\QueryInterface;
+
+class {{nomDeDomaine}}QueryHandler implements QueryHandlerInterface
+{
+
+    private ${{nomDeDomaineMinuscule}}Repository;
+
+    public function __construct({{nomDeDomaine}}Repository ${{nomDeDomaineMinuscule}}Repository)
+    {
+        $this->{{nomDeDomaineMinuscule}}Repository = ${{nomDeDomaineMinuscule}}Repository;
+    }
+
+    public function handle(QueryInterface ${{nomDeDomaineMinuscule}}Query)
+    {
+        $row = $this->{{nomDeDomaineMinuscule}}Repository->get(${{nomDeDomaineMinuscule}}Query->getId());
+        return $row;
+    }
+
+}

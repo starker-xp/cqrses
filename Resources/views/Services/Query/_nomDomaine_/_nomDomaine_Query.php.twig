@@ -1,0 +1,23 @@
+<?php
+
+namespace {{namespace}}\Services\Query\{{nomDeDomaine}};
+
+use Starkerxp\CQRSESBundle\Services\Query\QueryInterface;
+
+class {{nomDeDomaine}}Query implements QueryInterface
+{
+
+    private $id;
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}

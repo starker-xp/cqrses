@@ -1,0 +1,41 @@
+<?php
+
+namespace {{namespace}}\Services\Command\{{nomDeDomaine}};
+
+use \Starkerxp\CQRSESBundle\Services\Command\CommandInterface;
+
+class Modification{{nomDeDomaine}}Command implements CommandInterface
+{
+
+    private ${{nomDeDomaineMinuscule}}Id;
+    private $libelle;
+
+    /**
+     * @return string
+     */
+    public function get{{nomDeDomaine}}Id()
+    {
+        return $this->{{nomDeDomaineMinuscule}}Id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+    public function set{{nomDeDomaine}}Id(${{nomDeDomaineMinuscule}}Id)
+    {
+        $this->{{nomDeDomaineMinuscule}}Id = ${{nomDeDomaineMinuscule}}Id;
+        return $this;
+    }
+
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+        return $this;
+    }
+
+}

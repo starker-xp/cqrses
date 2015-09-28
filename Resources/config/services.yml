@@ -1,0 +1,4 @@
+services:
+    event_store:
+            class: "Starkerxp\\CQRSESBundle\\Services\\Persistence\\EventStore"
+            arguments: ["@doctrine.dbal.event_connection"]

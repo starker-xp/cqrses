@@ -1,0 +1,26 @@
+<?php
+
+namespace {{namespace}}\Services\Command\{{nomDeDomaine}};
+
+use \Starkerxp\CQRSESBundle\Services\Command\CommandInterface;
+
+class Creer{{nomDeDomaine}}Command implements CommandInterface
+{
+
+    private $libelle;
+
+    /**
+     * @return string
+     */
+    public function getLibelle()
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle($libelle)
+    {
+        $this->libelle = $libelle;
+        return $this;
+    }
+
+}
