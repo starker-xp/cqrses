@@ -12,14 +12,15 @@
         "php": ">=5.3.0"
     },
     "autoload": {
-        "psr-0": {
-            "Starkerxp\\CQRSESBundle": ""
+        "psr-4": {
+            "Starkerxp\\CQRSESBundle\\": ""
         }
     },
-    "target-dir": "Starkerxp/CQRSESBundle",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev": "master"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
