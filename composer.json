@@ -18,4 +18,13 @@
     },
     "target-dir": "Starkerxp/CQRSESBundle",
     "minimum-stability": "dev"
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": { "Sonata\\MediaBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
