@@ -17,9 +17,5 @@
         }
     },
     "target-dir": "Starkerxp/CQRSESBundle",
-    "extra": {
-        "branch-alias": {
-            "dev": "master"
-        }
-    }
+    "minimum-stability": "dev"
 }
