@@ -1,5 +1,6 @@
 {
     "name": "starkerxp/cqrses-bundle",
+    "description": "A demo bundle",
     "type": "symfony-bundle",
     "authors": [
         {
@@ -16,5 +17,9 @@
         }
     },
     "target-dir": "Starkerxp/CQRSESBundle",
-    "minimum-stability": "dev"
+    "extra": {
+        "branch-alias": {
+            "dev": "master"
+        }
+    }
 }
