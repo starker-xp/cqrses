@@ -16,7 +16,6 @@
             "Starkerxp\\CQRSESBundle\\": ""
         }
     },
-    "target-dir": "Starkerxp/CQRSESBundle",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
